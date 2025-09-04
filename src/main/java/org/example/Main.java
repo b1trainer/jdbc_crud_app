@@ -16,18 +16,19 @@ public class Main {
         int entityNumber = Utils.getIntFromInput(ApplicationConfig.SELECT_ENTITY_MESSAGE);
 
         switch (entityNumber) {
-            case 0:
+            case ApplicationConfig.EXIT_APPLICATION_OPERATION_ID:
                 System.exit(0);
-            case 1:
+            case ApplicationConfig.LABEL_ENTITY_ID:
                 labelController.executeOperation();
                 break;
-            case 2:
+            case ApplicationConfig.WRITER_ENTITY_ID:
                 writerController.executeOperation();
                 break;
-            case 3:
+            case ApplicationConfig.POST_ENTITY_ID:
                 postController.executeOperation();
                 break;
             default:
+                System.out.println("Некорректный идентификатор сущности! Попробуйте еще раз.");
                 break;
         }
     }

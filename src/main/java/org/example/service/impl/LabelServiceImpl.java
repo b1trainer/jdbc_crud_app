@@ -6,8 +6,8 @@ import java.util.List;
 
 public class LabelServiceImpl implements LabelService {
     @Override
-    public List<String> getAllLabels() {
-        return List.of();
+    public String getLabelById(Long id) {
+        return "";
     }
 
     @Override
@@ -16,12 +16,12 @@ public class LabelServiceImpl implements LabelService {
     }
 
     @Override
-    public String deleteLabel(String label) {
+    public String deleteLabel(Long label) {
         return "";
     }
 
     @Override
-    public String updateLabel(String oldLabel, String newLabel) {
+    public String updateLabel(Long id, String newLabel) {
         return "";
     }
 }

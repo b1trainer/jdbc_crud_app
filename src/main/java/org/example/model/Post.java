@@ -2,18 +2,23 @@ package org.example.model;
 
 import org.example.PostStatus;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Post {
-    private long id;
+    private UUID id;
     private String content;
-    private Date created;
-    private Date updated;
+    private Instant created;
+    private Instant updated;
     private List<Label> labels;
     private PostStatus status;
 
-    public Post(long id, String content, Date created, Date updated, List<Label> labels, PostStatus status) {
+    public Post() {
+    }
+
+    public Post(UUID id, String content, Instant created, Instant updated, List<Label> labels, PostStatus status) {
         this.id = id;
         this.content = content;
         this.created = created;
@@ -22,7 +27,7 @@ public class Post {
         this.status = status;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -30,11 +35,11 @@ public class Post {
         this.content = content;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Instant created) {
         this.created = created;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(Instant updated) {
         this.updated = updated;
     }
 
@@ -46,7 +51,7 @@ public class Post {
         this.status = status;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -54,11 +59,11 @@ public class Post {
         return content;
     }
 
-    public Date getCreated() {
+    public Instant getCreated() {
         return created;
     }
 
-    public Date getUpdated() {
+    public Instant getUpdated() {
         return updated;
     }
 

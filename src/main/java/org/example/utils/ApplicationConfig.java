@@ -10,6 +10,8 @@ public final class ApplicationConfig {
     public static final String DB_USERNAME_PROP_KEY = "db.username";
     public static final String DB_PASSWORD_PROP_KEY = "db.password";
 
+    public static final int EXIT_APPLICATION_OPERATION_ID = 0;
+
     public static final int CREATE_ENTITY_OPERATION_ID = 1;
     public static final int READ_ENTITY_OPERATION_ID = 2;
     public static final int UPDATE_ENTITY_OPERATION_ID = 3;
