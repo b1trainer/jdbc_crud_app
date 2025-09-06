@@ -1,27 +1,49 @@
 package org.example.service.impl;
 
+import org.example.model.Label;
+import org.example.repository.LabelRepository;
+import org.example.repository.impl.LabelRepositoryImpl;
 import org.example.service.LabelService;
 
-import java.util.List;
+import java.util.UUID;
 
 public class LabelServiceImpl implements LabelService {
-    @Override
-    public String getLabelById(Long id) {
-        return "";
+
+    private final LabelRepository labelRepository;
+
+    public LabelServiceImpl() {
+        this.labelRepository = new LabelRepositoryImpl();
     }
 
     @Override
-    public String createLabel(String label) {
-        return "";
+    public Label getLabelById(String id) {
+        UUID labelId = UUID.fromString(id);
+
+        return labelRepository.getLabelById(labelId);
     }
 
     @Override
-    public String deleteLabel(Long label) {
-        return "";
+    public void createLabel(String label) {
+        UUID newId = UUID.randomUUID();
+
+        Label newLabel = new Label();
+        newLabel.setId(newId);
+        newLabel.setName(label);
+
+        labelRepository.createLabel(newLabel);
     }
 
     @Override
-    public String updateLabel(Long id, String newLabel) {
-        return "";
+    public boolean deleteLabel(String id) {
+        UUID labelId = UUID.fromString(id);
+
+        return labelRepository.deleteById(labelId);
+    }
+
+    @Override
+    public boolean updateLabel(String id, String newLabel) {
+        UUID labelId = UUID.fromString(id);
+
+        return labelRepository.updateLabel(labelId, newLabel);
     }
 }

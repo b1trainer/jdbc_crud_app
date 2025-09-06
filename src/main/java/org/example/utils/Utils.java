@@ -3,6 +3,9 @@ package org.example.utils;
 import java.util.Scanner;
 
 public final class Utils {
+
+    private static final Scanner scanner = new Scanner(System.in);
+
     private Utils() {
     }
 
@@ -10,11 +13,13 @@ public final class Utils {
         System.out.println(message);
 
         try {
-            Scanner scanner = new Scanner(System.in);
-
             return scanner.nextInt();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Scanner getScanner() {
+        return scanner;
     }
 }

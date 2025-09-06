@@ -1,15 +1,12 @@
 package org.example.controller;
 
-import org.example.PostStatus;
-import org.example.model.Post;
 import org.example.service.PostService;
 import org.example.service.impl.PostServiceImpl;
-import org.example.utils.ApplicationConfig;
 import org.example.utils.Utils;
 
-import java.time.Instant;
+import static org.example.utils.ApplicationConfig.*;
+
 import java.util.Scanner;
-import java.util.UUID;
 
 public class PostController {
     private final PostService postService;
@@ -19,51 +16,45 @@ public class PostController {
     }
 
     public void executeOperation() {
-        int operationId = Utils.getIntFromInput(ApplicationConfig.SELECT_ENTITY_OPERATION_MESSAGE);
+        int operationId = Utils.getIntFromInput(SELECT_ENTITY_OPERATION_MESSAGE);
 
         switch (operationId) {
-            case ApplicationConfig.CREATE_ENTITY_OPERATION_ID:
+            case CREATE_ENTITY_OPERATION_ID:
                 createPost();
                 break;
-            case ApplicationConfig.READ_ENTITY_OPERATION_ID:
+
+            case READ_ENTITY_OPERATION_ID:
                 getPostById();
                 break;
-            case ApplicationConfig.UPDATE_ENTITY_OPERATION_ID:
+
+            case UPDATE_ENTITY_OPERATION_ID:
                 updatePost();
                 break;
-            case ApplicationConfig.DELETE_ENTITY_OPERATION_ID:
+
+            case DELETE_ENTITY_OPERATION_ID:
                 deletePost();
                 break;
+
             default:
+                System.out.println("Некорректный идентификатор операции!");
                 break;
         }
-
     }
 
     private void createPost() {
-        Scanner scanner = new Scanner(System.in);
-
-        Post post = new Post();
-
-        UUID postId = UUID.randomUUID();
-        post.setId(postId);
+        Scanner scanner = Utils.getScanner();
 
         System.out.println("Введите содержимое для поста");
         String content = scanner.nextLine();
-        post.setContent(content);
 
-        Instant now = Instant.now();
-        post.setCreated(now);
-        post.setUpdated(now);
+        System.out.println("Введите через запятую метки для поста");
+        String labels = scanner.nextLine();
 
-//        System.out.println("Введите метки для поста");
-
-        post.setStatus(PostStatus.UNDER_REVIEW);
-        postService.createPost(post);
+        postService.createPost(content, labels);
     }
 
     private void getPostById() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = Utils.getScanner();
 
         System.out.println("Введите id поста для получения:");
         long postId = scanner.nextLong();
@@ -72,15 +63,23 @@ public class PostController {
     }
 
     private void updatePost() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = Utils.getScanner();
 
         System.out.println("Введите id поста для обновления");
         long postId = scanner.nextLong();
-        Instant updateTime = Instant.now();
+
+        System.out.println("Введите новый контент для поста (ничего не вводите, если не хотите его изменять)");
+        String newContent = scanner.nextLine();
+
+        System.out.println("Введите через запятую новые метки для поста (ничего не вводите, если не хотите их изменять)");
+        String labels = scanner.nextLine();
+
+        postService.updatePost(postId, newContent, labels);
+
     }
 
     private void deletePost() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = Utils.getScanner();
 
         System.out.println("Введите id поста для удаления");
         long postId = scanner.nextLong();

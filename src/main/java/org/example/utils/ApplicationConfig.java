@@ -32,14 +32,17 @@ public final class ApplicationConfig {
     public static final int LABEL_ENTITY_ID = 1;
     public static final int WRITER_ENTITY_ID = 2;
     public static final int POST_ENTITY_ID = 3;
+    public static final int POST_STATUS_ID = 4;
 
     public static final String SELECT_ENTITY_MESSAGE = String.format("""
                     Выберите имя сущности для внесения изменений:
                     %d. Label
                     %d. Writer
                     %d. Post
+                    %d. Post status
                     """,
             LABEL_ENTITY_ID,
             WRITER_ENTITY_ID,
-            POST_ENTITY_ID);
+            POST_ENTITY_ID,
+            POST_STATUS_ID);
 }

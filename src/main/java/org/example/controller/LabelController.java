@@ -1,10 +1,13 @@
 package org.example.controller;
 
+import org.example.model.Label;
 import org.example.service.LabelService;
 import org.example.service.impl.LabelServiceImpl;
-import org.example.utils.ApplicationConfig;
 import org.example.utils.Utils;
 
+import static org.example.utils.ApplicationConfig.*;
+
+import java.util.Optional;
 import java.util.Scanner;
 
 public class LabelController {
@@ -16,21 +19,25 @@ public class LabelController {
     }
 
     public void executeOperation() {
-        int operationId = Utils.getIntFromInput(ApplicationConfig.SELECT_ENTITY_OPERATION_MESSAGE);
+        int operationId = Utils.getIntFromInput(SELECT_ENTITY_OPERATION_MESSAGE);
 
         switch (operationId) {
-            case ApplicationConfig.CREATE_ENTITY_OPERATION_ID:
+            case CREATE_ENTITY_OPERATION_ID:
                 createLabel();
                 break;
-            case ApplicationConfig.READ_ENTITY_OPERATION_ID:
+
+            case READ_ENTITY_OPERATION_ID:
                 getLabelById();
                 break;
-            case ApplicationConfig.UPDATE_ENTITY_OPERATION_ID:
+
+            case UPDATE_ENTITY_OPERATION_ID:
                 updateLabel();
                 break;
-            case ApplicationConfig.DELETE_ENTITY_OPERATION_ID:
+
+            case DELETE_ENTITY_OPERATION_ID:
                 deleteLabel();
                 break;
+
             default:
                 System.out.println("Некорректный идентификатор операции!");
                 break;
@@ -38,41 +45,55 @@ public class LabelController {
     }
 
     private void createLabel() {
-        System.out.println("Введите новое название метки:");
+        Scanner scanner = Utils.getScanner();
 
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите новое название метки:");
         String labelName = scanner.nextLine();
 
         labelService.createLabel(labelName);
     }
 
     private void deleteLabel() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = Utils.getScanner();
 
         System.out.println("Введите идентификатор метки для удаления:");
-        long labelId = scanner.nextLong();
+        String labelId = scanner.nextLine();
 
-        labelService.deleteLabel(labelId);
+        boolean isDeleted = labelService.deleteLabel(labelId);
+
+        if (isDeleted) {
+            System.out.println("Метка корректно удалена");
+        }
     }
 
     private void updateLabel() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = Utils.getScanner();
 
         System.out.println("Введите идентификатор метки для обновления:");
-        long labelId = scanner.nextLong();
+        String labelId = scanner.nextLine();
 
         System.out.println("Введите новое имя метки:");
         String newLabelName = scanner.nextLine();
 
-        labelService.updateLabel(labelId, newLabelName);
+        boolean isUpdated = labelService.updateLabel(labelId, newLabelName);
+
+        if (isUpdated) {
+            System.out.println("Метка корректно обновлена");
+        }
     }
 
     private void getLabelById() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = Utils.getScanner();
 
         System.out.println("Введите идентификатор метки которую хотите прочитать:");
-        long labelId = scanner.nextLong();
+        String labelId = scanner.nextLine();
 
-        labelService.getLabelById(labelId);
+        Optional<Label> label = Optional.ofNullable(labelService.getLabelById(labelId));
+
+        if (label.isPresent()) {
+            System.out.println("Искомая метка: " + label);
+        } else {
+            System.out.println("Искомая метка не найдена");
+        }
     }
 }

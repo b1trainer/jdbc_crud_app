@@ -2,12 +2,14 @@ package org.example.service;
 
 import org.example.model.Post;
 
+import java.util.List;
+
 public interface PostService {
-    public String createPost(Post post);
+    String createPost(String content, String labels);
 
-    public Post getPost(long id);
+    Post getPost(Long id);
 
-    public String updatePost(Post post);
+    String updatePost(Long id , String content, String labels);
 
-    public String deletePost(long id);
+    String deletePost(Long id);
 }

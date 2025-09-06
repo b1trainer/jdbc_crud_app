@@ -1,21 +1,25 @@
 package org.example.model;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Writer {
-    private long id;
+    private UUID id;
     private String firstName;
     private String lastName;
     private List<Post> posts;
 
-    public Writer(long id, String firstName, String lastName, List<Post> posts) {
+    public Writer() {
+    }
+
+    public Writer(UUID id, String firstName, String lastName, List<Post> posts) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.posts = posts;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -31,7 +35,7 @@ public class Writer {
         this.posts = posts;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 

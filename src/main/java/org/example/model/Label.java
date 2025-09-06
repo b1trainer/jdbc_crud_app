@@ -1,15 +1,20 @@
 package org.example.model;
 
+import java.util.UUID;
+
 public class Label {
-    private long id;
+    private UUID id;
     private String name;
 
-    public Label(long id, String name) {
+    public Label() {
+    }
+
+    public Label(UUID id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -17,7 +22,7 @@ public class Label {
         this.name = name;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 

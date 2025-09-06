@@ -1,9 +1,6 @@
 package org.example.model;
 
-import org.example.PostStatus;
-
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
