@@ -1,26 +1,67 @@
 package org.example.service.impl;
 
 import org.example.model.Writer;
+import org.example.repository.WriterRepository;
+import org.example.repository.impl.WriterRepositoryImpl;
 import org.example.service.WriterService;
 
 public class WriterServiceImpl implements WriterService {
-    @Override
-    public String createWriter(Writer writer) {
-        return "";
+
+    private final WriterRepository writerRepository;
+
+    public WriterServiceImpl() {
+        this.writerRepository = new WriterRepositoryImpl();
+    }
+
+    public WriterServiceImpl(WriterRepository writerRepository) {
+        this.writerRepository = writerRepository;
     }
 
     @Override
-    public Writer getWriter(String firstName, String lastName) {
+    public boolean createWriter(String firstName, String lastName) {
+        Writer writer = new Writer();
+        writer.setFirstName(firstName);
+        writer.setLastName(lastName);
+
+        return writerRepository.createWriter(writer);
+    }
+
+    @Override
+    public Writer getWriter(String id) {
+        try {
+            Long writerId = Long.parseLong(id);
+
+            return writerRepository.getById(writerId);
+        } catch (NumberFormatException e) {
+            System.out.println("Error when reading writer: " + e.getMessage());
+        }
+
         return null;
     }
 
     @Override
-    public String updateWriter(Writer writer) {
-        return "";
+    public boolean updateWriter(String id, String firstName, String lastName) {
+        try {
+            Long writerId = Long.parseLong(id);
+
+            return writerRepository.updateWriter(writerId, firstName, lastName);
+        } catch (NumberFormatException e) {
+            System.out.println("Error when updating writer: " + e.getMessage());
+        }
+
+        return false;
     }
 
     @Override
-    public String deleteWriter(String writerId) {
-        return "";
+    public boolean deleteWriter(String id) {
+        try {
+            Long writerId = Long.parseLong(id);
+
+            return writerRepository.deleteById(writerId);
+        } catch (NumberFormatException e) {
+            System.out.println("Error when deleting writer: " + e.getMessage());
+        }
+
+        return false;
     }
 }

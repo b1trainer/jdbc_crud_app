@@ -3,11 +3,11 @@ package org.example.service;
 import org.example.model.Post;
 
 public interface PostService {
-    public String createPost(Post post);
+    Long createPost(String writerId, String content);
 
-    public Post getPost(long id);
+    Post getPost(String id);
 
-    public String updatePost(Post post);
+    boolean updatePost(String id, String content);
 
-    public String deletePost(long id);
+    boolean deletePost(String id);
 }

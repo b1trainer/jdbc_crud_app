@@ -1,0 +1,43 @@
+CREATE TABLE IF NOT EXISTS writers
+(
+    id        BIGINT PRIMARY KEY AUTO_INCREMENT,
+    firstName VARCHAR(50) NOT NULL,
+    lastName  VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS posts
+(
+    id       BIGINT PRIMARY KEY AUTO_INCREMENT,
+    content  VARCHAR(2000)   NOT NULL,
+    created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    writerId BIGINT NOT NULL,
+    FOREIGN KEY (writerId) REFERENCES writers (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS post_status
+(
+    id     BIGINT PRIMARY KEY,
+    status VARCHAR(20) NOT NULL,
+    FOREIGN KEY (id) REFERENCES posts (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS labels
+(
+    id   BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS posts_labels
+(
+    id       INT PRIMARY KEY AUTO_INCREMENT,
+    post_id  BIGINT NOT NULL,
+    label_id BIGINT NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
+    FOREIGN KEY (label_id) REFERENCES labels (id) ON DELETE CASCADE,
+    UNIQUE (post_id, label_id)
+);
+
+CREATE INDEX idx_posts_writerId ON posts (writerId);
+CREATE INDEX idx_writers_name ON writers (firstName, lastName);
+CREATE INDEX idx_labels_name ON labels (name);

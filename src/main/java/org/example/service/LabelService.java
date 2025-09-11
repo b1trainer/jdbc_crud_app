@@ -1,13 +1,13 @@
 package org.example.service;
 
-import java.util.List;
+import org.example.model.Label;
 
 public interface LabelService {
-    public List<String> getAllLabels();
+    boolean createLabel(String label);
 
-    public String createLabel(String label);
+    Label getLabelById(String id);
 
-    public String deleteLabel(String label);
+    boolean updateLabel(String id, String newLabel);
 
-    public String updateLabel(String oldLabel, String newLabel);
+    boolean deleteLabel(String id);
 }

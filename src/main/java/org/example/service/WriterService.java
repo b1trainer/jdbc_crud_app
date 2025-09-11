@@ -3,11 +3,11 @@ package org.example.service;
 import org.example.model.Writer;
 
 public interface WriterService {
-    public String createWriter(Writer writer);
+    boolean createWriter(String firstName, String lastName);
 
-    public Writer getWriter(String firstName, String lastName);
+    Writer getWriter(String id);
 
-    public String updateWriter(Writer writer);
+    boolean updateWriter(String id, String firstName, String lastName);
 
-    public String deleteWriter(String writerId);
+    boolean deleteWriter(String id);
 }

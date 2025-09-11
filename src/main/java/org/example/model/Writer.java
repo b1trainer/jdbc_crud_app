@@ -1,21 +1,20 @@
 package org.example.model;
 
-import java.util.List;
-
 public class Writer {
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
-    private List<Post> posts;
 
-    public Writer(long id, String firstName, String lastName, List<Post> posts) {
+    public Writer() {
+    }
+
+    public Writer(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.posts = posts;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -27,11 +26,7 @@ public class Writer {
         this.lastName = lastName;
     }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -43,16 +38,14 @@ public class Writer {
         return lastName;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
     @Override
     public String toString() {
-        return "Writer{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", posts=" + posts +
-                '}';
+        return String.format("""
+                ===============
+                Writer id: %d
+                First name: %s
+                Last name: %s
+                ===============
+                """, id, firstName, lastName);
     }
 }

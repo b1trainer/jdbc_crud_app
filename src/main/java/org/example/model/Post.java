@@ -1,20 +1,24 @@
 package org.example.model;
 
-import org.example.PostStatus;
-
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Post {
-    private long id;
+    private Long id;
+    private Long writerId;
     private String content;
-    private Date created;
-    private Date updated;
+    private Instant created;
+    private Instant updated;
     private List<Label> labels;
     private PostStatus status;
 
-    public Post(long id, String content, Date created, Date updated, List<Label> labels, PostStatus status) {
+    public Post() {
+    }
+
+    public Post(Long id, Long writerId, String content, Instant created, Instant updated, List<Label> labels, PostStatus status) {
         this.id = id;
+        this.writerId = writerId;
         this.content = content;
         this.created = created;
         this.updated = updated;
@@ -22,7 +26,7 @@ public class Post {
         this.status = status;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -30,11 +34,11 @@ public class Post {
         this.content = content;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Instant created) {
         this.created = created;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(Instant updated) {
         this.updated = updated;
     }
 
@@ -46,7 +50,15 @@ public class Post {
         this.status = status;
     }
 
-    public long getId() {
+    public Long getWriterId() {
+        return writerId;
+    }
+
+    public void setWriterId(Long writerId) {
+        this.writerId = writerId;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -54,11 +66,11 @@ public class Post {
         return content;
     }
 
-    public Date getCreated() {
+    public Instant getCreated() {
         return created;
     }
 
-    public Date getUpdated() {
+    public Instant getUpdated() {
         return updated;
     }
 
@@ -72,12 +84,23 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" +
-                "content='" + content + '\'' +
-                ", created=" + created +
-                ", updated=" + updated +
-                ", labels=" + labels +
-                ", status=" + status +
-                '}';
+        return String.format("""
+                        ===============
+                        Post id: %d
+                        content: %s
+                        created: %s
+                        updated: %s
+                        labels: %s
+                        status: %s
+                        writerId: %d
+                        ===============
+                        """,
+                id,
+                content,
+                created.toString(),
+                updated.toString(),
+                labels.stream().map(Label::getName).collect(Collectors.joining(",")),
+                status.getStatus(),
+                writerId);
     }
 }

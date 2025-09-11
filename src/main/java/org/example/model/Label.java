@@ -1,24 +1,27 @@
 package org.example.model;
 
 public class Label {
-    private long id;
+    private Long id;
     private String name;
 
-    public Label(long id, String name) {
+    public Label() {
+    }
+
+    public Label(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void setId(long id) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getName() {
@@ -27,8 +30,11 @@ public class Label {
 
     @Override
     public String toString() {
-        return "Label{" +
-                "name='" + name + '\'' +
-                '}';
+        return String.format("""
+                ============
+                Label id: %d
+                Name: %s
+                ============
+                """, id, name);
     }
 }
